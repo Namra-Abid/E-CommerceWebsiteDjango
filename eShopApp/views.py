@@ -5,4 +5,4 @@ from .models import Product
 def index(request):
     products=Product.get_all_products()
     print(products)
-    return HttpResponse("Hello")
+    return render(request,'eShopApp/index.html',{'products':products})
