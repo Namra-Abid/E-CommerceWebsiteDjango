@@ -14,11 +14,11 @@
 </head>
 
 <body>
-    <h1>Hello, world!</h1>
-
-    <div class="row">
+   
+<div class="container-fluid">
+    <div class="row mx-auto">
         {% for product in products %}
-        <div class="card" style="width: 18rem;">
+        <div class="card mx-auto mb-3" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{product.name}}</h5>
@@ -30,6 +30,10 @@
 
 
     </div>
+
+</div>
+        
+    
 
 
 
