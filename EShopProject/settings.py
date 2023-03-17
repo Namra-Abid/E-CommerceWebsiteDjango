@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'eShopApp'
+    'eShopApp', #self added
+    'crispy_forms', #self added for bootstrap
+    'crispy_bootstrap4', #self added for bootstrap
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4' #self added for bootstrap
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

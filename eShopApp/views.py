@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Product,Category,Customer
+from .forms import CustomerForm
 # Create your views here.
 def index(request):
     products=None
@@ -21,18 +22,30 @@ def index(request):
 
 def signup(request):
     if request.method=="GET":
-       return render(request,'eShopApp/signup.html')
+       custform=CustomerForm()
+       print("FORM : ",custform)
+       return render(request,'eShopApp/signup.html',{'form':custform})
     else:
-        first=request.POST.get('firstname')
-        last=request.POST.get('lastname')
-        email=request.POST.get('email')
-        phone=request.POST.get('phone')
-        password=request.POST.get('password')
-        print(first,last,email,phone,password)
-        customer_obj=Customer(first_name=first,
-                          last_name=last,
-                          email=email,
-                          phone=phone,
-                          password=password)
-        customer_obj.register()
+         #create a form instance and populate it with data from the request:
+        custform = CustomerForm(request.POST)
+        # check whether it's valid:
+        if custform.is_valid():
+            # process the data in form.cleaned_data as required 
+            custform.save()
+            return HttpResponse("Saved !")
+
+        
+        # first=request.POST.get('firstname')
+        # last=request.POST.get('lastname')
+        # email=request.POST.get('email')
+        # phone=request.POST.get('phone')
+        # password=request.POST.get('password')
+        # print(first,last,email,phone,password)
+        # customer_obj=Customer(first_name=first,
+        #                   last_name=last,
+        #                   email=email,
+        #                   phone=phone,
+        #                   password=password)
+        
+        # customer_obj.register()
         return HttpResponse("Received")

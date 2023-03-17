@@ -1,4 +1,6 @@
 {% extends 'eShopApp/base.html' %}
+{% load crispy_forms_tags %}
+
 {% block title %} Sign Up Page{% endblock %}
 {% block body %}
 
@@ -14,28 +16,22 @@
             {% csrf_token %}
             <!-- Fist Name -->
             <div class="form-group">
-              <label for="">Fist Name</label>
-              <input type="text" name="firstname" id="" class="form-control" placeholder="" >
-            </div>
+                {{form.first_name|as_crispy_field}}
             <!-- Last Name -->
             <div class="form-group">
-                <label for="">Last Name</label>
-                <input type="text" name="lastname" id="" class="form-control" placeholder="" >
+                {{form.last_name|as_crispy_field}}
             </div>
             <!-- Email -->
             <div class="form-group">
-                <label for="">Email</label>
-                <input type="email" name="email" id="" class="form-control" placeholder="" >
+                {{form.email|as_crispy_field}}
             </div>
             <!-- Phone -->
             <div class="form-group">
-                <label for="">Phone</label>
-                <input type="text" name="phone" id="" class="form-control" placeholder="" >
+                {{form.phone|as_crispy_field}}
             </div>
             <!-- Password -->
             <div class="form-group">
-                <label for="">Password</label>
-                <input type="password" name="password" id="" class="form-control" placeholder="" >
+                {{form.password|as_crispy_field}}
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-info" value="Register">
