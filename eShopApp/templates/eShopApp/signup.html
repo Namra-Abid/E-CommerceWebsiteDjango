@@ -1,0 +1,53 @@
+{% extends 'eShopApp/base.html' %}
+{% block title %} Sign Up Page{% endblock %}
+{% block body %}
+
+<div class="container">   <!-- Container class add little margin from left and right-->
+    <div class="p-4 m-4">  <!--  p-4 gives padding 4 px and m4 gives margin-->
+    <div  class="col-lg-5 mx-auto"> <!--col lg 5 is downsizing the width of this div 
+                                    which means out of 12 parts only five parts are
+                                    used for the fields of forms 
+                                    mx-auto is making this div in centre-->
+    <h1 class="Alert Alert-Light border pt-2 pb-2 pl-4 pr-4">Register Yourself</h1>
+    <!--Alert is a class and border is used to give border pt is used for margin-->
+    <form action="{% url 'eShopApp:signup' %}" method="post" class="">
+            {% csrf_token %}
+            <!-- Fist Name -->
+            <div class="form-group">
+              <label for="">Fist Name</label>
+              <input type="text" name="firstname" id="" class="form-control" placeholder="" >
+            </div>
+            <!-- Last Name -->
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="text" name="lastname" id="" class="form-control" placeholder="" >
+            </div>
+            <!-- Email -->
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="email" name="" id="" class="form-control" placeholder="" >
+            </div>
+            <!-- Phone -->
+            <div class="form-group">
+                <label for="">Phone</label>
+                <input type="text" name="" id="" class="form-control" placeholder="" >
+            </div>
+            <!-- Password -->
+            <div class="form-group">
+                <label for="">Password</label>
+                <input type="password" name="" id="" class="form-control" placeholder="" >
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-info" value="Register">
+            </div>
+    </form>
+    </div>
+    </div>
+</div>
+
+    {% endblock %}
+
+
+
+
+   

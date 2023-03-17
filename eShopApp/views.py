@@ -18,3 +18,9 @@ def index(request):
     }
     #print(products)
     return render(request,'eShopApp/index.html',content)
+
+def signup(request):
+    if request.method=="GET":
+       return render(request,'eShopApp/signup.html')
+    else:
+        return HttpResponse("Received")
