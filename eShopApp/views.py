@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Product,Category
+from .models import Product,Category,Customer
 # Create your views here.
 def index(request):
     products=None
@@ -23,4 +23,16 @@ def signup(request):
     if request.method=="GET":
        return render(request,'eShopApp/signup.html')
     else:
+        first=request.POST.get('firstname')
+        last=request.POST.get('lastname')
+        email=request.POST.get('email')
+        phone=request.POST.get('phone')
+        password=request.POST.get('password')
+        print(first,last,email,phone,password)
+        customer_obj=Customer(first_name=first,
+                          last_name=last,
+                          email=email,
+                          phone=phone,
+                          password=password)
+        customer_obj.register()
         return HttpResponse("Received")
