@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from .models import Product,Category,Customer
 from .forms import CustomerForm
+from django.urls import reverse
 # Create your views here.
 def index(request):
     products=None
@@ -23,17 +24,24 @@ def index(request):
 def signup(request):
     if request.method=="GET":
        custform=CustomerForm()
-       print("FORM : ",custform)
+       #print("FORM : ",custform)
        return render(request,'eShopApp/signup.html',{'form':custform})
     else:
          #create a form instance and populate it with data from the request:
         custform = CustomerForm(request.POST)
         # check whether it's valid:
+        # In the 'form' class the clean function
+        # is defined, if all the data is correct
+        # as per the clean function, it returns true
+
         if custform.is_valid():
             # process the data in form.cleaned_data as required 
+           # custform.cleaned_data["firstname"]
             custform.save()
-            return HttpResponse("Saved !")
-
+            return HttpResponseRedirect(reverse("eShopApp:home"))
+        else:
+            return render(request,'eShopApp/signup.html',{'form':custform})
+           
         
         # first=request.POST.get('firstname')
         # last=request.POST.get('lastname')
@@ -48,4 +56,4 @@ def signup(request):
         #                   password=password)
         
         # customer_obj.register()
-        return HttpResponse("Received")
+        
