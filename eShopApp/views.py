@@ -23,7 +23,6 @@ def index(request):
 def signup(request):
     if request.method=="GET":
        custform=CustomerForm()
-       #print("FORM : ",custform)
        return render(request,'eShopApp/signup.html',{'form':custform})
     else:
         #create a form instance and populate it with data from the request:
@@ -42,14 +41,11 @@ def signup(request):
 def login(request):
     if request.method=="GET":
        custform=LoginForm()
-       #print("FORM : ",custform)
        return render(request,'eShopApp/login.html',{'form':custform})
     else:
         email=request.POST.get("email")
         password=request.POST.get("password")
         customer=Customer.get_customer_by_email(email)
-        print(email,password)
-        print(customer)
         if customer:
             flag=check_password(password, customer.password)
             if flag:
@@ -58,6 +54,5 @@ def login(request):
                 error_message="Email or Password Invalid !! "
         else:
                 error_message="Email or Password Invalid !! "
-
         custform=LoginForm()
         return render(request,"eShopApp/login.html",{'error':error_message,'form':custform})
