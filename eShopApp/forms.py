@@ -2,6 +2,8 @@ from django import forms
 from django.forms import ValidationError
 from .models import Customer
 
+from django.contrib.auth.hashers import make_password,check_password
+
 class CustomerForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     class Meta:
@@ -23,12 +25,19 @@ class CustomerForm(forms.ModelForm):
         if Customer.objects.filter(email=form_data['email']).exists():
             self._errors["email"] = [" Email should be unique"] # Will raise a error message
             del form_data['email']
-
+        form_data['password']  = make_password(form_data['password'])
         
         # if form_data['first_name'] != form_data['last_name']:
         #     self._errors["first_name"] = ["Password do not match"] # Will raise a error message
         #     del form_data['first_name']
         return form_data
 
-    
+
+
+class LoginForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    class Meta:
+        model = Customer
+        fields = ['email','password']
+
 

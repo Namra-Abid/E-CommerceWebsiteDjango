@@ -10,32 +10,25 @@
                                     which means out of 12 parts only five parts are
                                     used for the fields of forms 
                                     mx-auto is making this div in centre-->
-            <h1 class="Alert Alert-Light border pt-2 pb-2 pl-4 pr-4">Register Yourself</h1>
+            <h1 class="Alert Alert-Light  pt-2 pb-2 pl-5 pr-0">Login Here !</h1>
             <!--Alert is a class and border is used to give border pt is used for margin-->
-            <form action="{% url 'eShopApp:signup' %}" method="post" class="">
+            <form action="{% url 'eShopApp:login' %}" method="post" class="">
                 {% csrf_token %}
-                <!-- Fist Name -->
-                <div class="form-group">
-                    {{form.first_name|as_crispy_field}}
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
                 </div>
-                    <!-- Last Name -->
-                    <div class="form-group">
-                        {{form.last_name|as_crispy_field}}
-                    </div>
+                {% endif %}
                     <!-- Email -->
                     <div class="form-group">
                         {{form.email|as_crispy_field}}
-                    </div>
-                    <!-- Phone -->
-                    <div class="form-group">
-                        {{form.phone|as_crispy_field}}
                     </div>
                     <!-- Password -->
                     <div class="form-group">
                         {{form.password|as_crispy_field}}
                     </div>
                     <div class="form-group">
-                        <input type="submit" class="btn btn-info" value="Register">
+                        <input type="submit" class="btn btn-info" value="Login">
                     </div>
             </form>
         </div>
