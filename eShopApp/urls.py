@@ -5,7 +5,7 @@ app_name="eShopApp"
 urlpatterns = [
   
     path('',views.index,name="home"),
-    path('signup/',views.signup,name="signup"),
-    path('login/',views.login,name="login")
+    path('signup/',views.SignUp.as_view(),name="signup"),
+    path('login/',views.Login.as_view(),name="login")
    
 ]

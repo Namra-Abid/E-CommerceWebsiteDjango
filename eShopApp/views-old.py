@@ -21,11 +21,11 @@ def index(request):
     }
     #print(products)
     return render(request,'eShopApp/index.html',content)
-class SignUp(View):
-    def get(self,request):
-        custform=CustomerForm()
-        return render(request,'eShopApp/signup.html',{'form':custform})
-    def post(self ,request):
+def signup(request):
+    if request.method=="GET":
+       custform=CustomerForm()
+       return render(request,'eShopApp/signup.html',{'form':custform})
+    else:
         #create a form instance and populate it with data from the request:
         custform = CustomerForm(request.POST)
         # check whether it's valid:
@@ -40,13 +40,11 @@ class SignUp(View):
         else:
             return render(request,'eShopApp/signup.html',{'form':custform})
 
-
-
-class Login(View):
-    def get(self,request):
-        custform=LoginForm()
-        return render(request,'eShopApp/login.html',{'form':custform})
-    def post(self,request):
+def login(request):
+    if request.method=="GET":
+       custform=LoginForm()
+       return render(request,'eShopApp/login.html',{'form':custform})
+    else:
         email=request.POST.get("email")
         password=request.POST.get("password")
         customer=Customer.get_customer_by_email(email)

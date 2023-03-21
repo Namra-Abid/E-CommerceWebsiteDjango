@@ -22,10 +22,10 @@ class CustomerForm(forms.ModelForm):
         if len(form_data['phone']) < 11:
             self._errors["phone"] = [" Should be atleast 10 characters"] # Will raise a error message
             del form_data['phone']
-        if Customer.objects.filter(email=form_data['email']).exists():
+        if Customer.objects.filter(email=form_data['email']).exists(): # to check whether email already exist or not
             self._errors["email"] = [" Email should be unique"] # Will raise a error message
             del form_data['email']
-        form_data['password']  = make_password(form_data['password'])
+        form_data['password']  = make_password(form_data['password']) # to hash password 
         
         # if form_data['first_name'] != form_data['last_name']:
         #     self._errors["first_name"] = ["Password do not match"] # Will raise a error message
