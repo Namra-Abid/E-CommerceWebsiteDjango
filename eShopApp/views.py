@@ -6,21 +6,27 @@ from .forms import CustomerForm,LoginForm
 from django.urls import reverse
 from django.views import View
 # Create your views here.
-def index(request):
-    products=None
-    categories=Category.get_all_categories()
-    categoryId=False
-    categoryId=request.GET.get('category_id') # this caregory_id is coming  from url because of "/?"
-    if categoryId:
-       products= Product.get_all_products_by_categoryid(categoryId)
-    else:
-        products=Product.get_all_products()
-    content={
-        'products':products,
-        'categories':categories
-    }
-    #print(products)
-    return render(request,'eShopApp/index.html',content)
+class Index(View):
+    def post(self,request):
+        productid=request.POST.get('product_id')
+        print(productid)
+        return HttpResponseRedirect(reverse("eShopApp:home"))
+
+    def get(self,request):
+        products=None
+        categories=Category.get_all_categories()
+        categoryId=False
+        categoryId=request.GET.get('category_id') # this caregory_id is coming  from url because of "/?"
+        if categoryId:
+            products= Product.get_all_products_by_categoryid(categoryId)
+        else:
+            products=Product.get_all_products()
+        content={
+            'products':products,
+            'categories':categories
+        }
+        #print(products)
+        return render(request,'eShopApp/index.html',content)
 class SignUp(View):
     def get(self,request):
         custform=CustomerForm()
@@ -53,6 +59,9 @@ class Login(View):
         if customer:
             flag=check_password(password, customer.password)
             if flag:
+                request.session['customer_id']=customer.id
+                request.session['customer_email']=customer.email
+                print("request.session['customer_email']",request.session['customer_email'])
                 return HttpResponseRedirect(reverse("eShopApp:home"))
             else:
                 error_message="Email or Password Invalid !! "

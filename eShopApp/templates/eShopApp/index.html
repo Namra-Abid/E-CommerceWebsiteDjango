@@ -12,7 +12,14 @@
                         <div class="card-body">
                             <h5 class="card-title">{{product.name}}</h5>
                             <p class="card-text">{{product.name}}</p>
-                            <a href="#" class="btn btn-primary">Add to Cart</a>
+
+                            <form action="{% url 'eShopApp:home' %}" method="post">
+                                {% csrf_token %}
+                                <input hidden type="text" name="product_id" value="{{product.id}}">
+                                <input type="submit" class="btn btn-primary" value="Add to Cart">
+
+                            </form>
+                            <!--a href="#" class="btn btn-primary">Add to Cart</!--a-->
                         </div>
                     </div>
                     {% endfor %}
