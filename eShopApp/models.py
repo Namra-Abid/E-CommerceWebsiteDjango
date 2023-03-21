@@ -41,10 +41,6 @@ class Customer(models.Model):
         self.save()
     def __str__(self) :
         return self.first_name +" "+self.last_name
-    def emailAlreadyExist(self):
-        if Customer.objects.filter(email=self.email):
-          return True
-        return False
     @staticmethod
     def get_customer_by_email(email):
         try:
