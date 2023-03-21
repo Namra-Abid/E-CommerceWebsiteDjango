@@ -9,7 +9,18 @@ from django.views import View
 class Index(View):
     def post(self,request):
         productid=request.POST.get('product_id')
-        print(productid)
+        cart=request.session.get('cart')
+        if cart:
+            product_exist=cart.get(productid)
+            if product_exist:
+                cart[productid]+=1
+            else:
+                cart[productid]=1
+        else:
+            cart={}
+            cart[productid]=1
+        request.session['cart']=cart
+        print("CART :",request.session['cart'])
         return HttpResponseRedirect(reverse("eShopApp:home"))
 
     def get(self,request):
