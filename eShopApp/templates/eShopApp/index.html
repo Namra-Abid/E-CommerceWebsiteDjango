@@ -1,7 +1,7 @@
 {% extends 'eShopApp/base.html' %}
 {% block title %} Home Page {% endblock %}
 {% block body %}
-
+{% load cartsfilter %}
     <div class="container-fluid mt-2">
         <div class="row">
             <div id="products" class="col-lg-8">
@@ -11,7 +11,8 @@
                         <img src="{{product.image.url}}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{product.name}}</h5>
-                            <p class="card-text">{{product.name}}</p>
+                            <p class="card-text">{{product.price}}</p>
+                            {{product | is_in_cart:request.session.cart}}
 
                             <form action="{% url 'eShopApp:home' %}" method="post">
                                 {% csrf_token %}

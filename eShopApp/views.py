@@ -24,6 +24,9 @@ class Index(View):
         return HttpResponseRedirect(reverse("eShopApp:home"))
 
     def get(self,request):
+        cart=request.session.get('cart')
+        if not cart:
+            request.session.cart={}
         products=None
         categories=Category.get_all_categories()
         categoryId=False
