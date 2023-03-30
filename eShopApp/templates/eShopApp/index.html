@@ -20,7 +20,7 @@
                             <!-- "justify-content-center" ye center me kardega div ko -->
                             <!--No gutters negative margin khatam kardega-->
                             <input type="submit" value=" - " class="col-2 btn btn-light btn btn-outline-dark">
-                            <div class="text-center">2 in Cart</div>
+                            <div class="text-center">{{product|count_in_cart:request.session.cart}}</div>
                             <input type="submit" value=" + " class="col-2 btn btn-light btn btn-outline-dark">
                         </div>
                         {% else %}
