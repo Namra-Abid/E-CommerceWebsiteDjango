@@ -2,31 +2,42 @@
 {% block title %} Home Page {% endblock %}
 {% block body %}
 {% load cartsfilter %}
-    <div class="container-fluid mt-2">
-        <div class="row">
-            <div id="products" class="col-lg-8">
-                <div class="row mx-auto">
-                    {% for product in products %}
-                    <div class="card mx-auto mb-3" style="width: 18rem;">
-                        <img src="{{product.image.url}}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{product.name}}</h5>
-                            <p class="card-text">{{product.price}}</p>
-                            {{product | is_in_cart:request.session.cart}}
-
-                            <form action="{% url 'eShopApp:home' %}" method="post">
-                                {% csrf_token %}
-                                <input hidden type="text" name="product_id" value="{{product.id}}">
-                                <input type="submit" class="btn btn-primary" value="Add to Cart">
-
-                            </form>
-                            <!--a href="#" class="btn btn-primary">Add to Cart</!--a-->
-                        </div>
+<div class="container-fluid mt-2">
+    <div class="row">
+        <div id="products" class="col-lg-8">
+            <div class="row mx-auto">
+                {% for product in products %}
+                <div class="card mx-auto mb-3" style="width: 18rem;">
+                    <img src="{{product.image.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <p class="card-text">{{product.price}}</p>
+                        {{product | is_in_cart:request.session.cart}}
                     </div>
-                    {% endfor %}
+                    <div class="card-footer  p-0 no-gutters ">
+                        {% if product|is_in_cart:request.session.cart %}
+                        <div class="justify-content-center row no-gutters " >
+                            <!-- "justify-content-center" ye center me kardega div ko -->
+                            <!--No gutters negative margin khatam kardega-->
+                            <input type="submit" value=" - " class="col-2 btn btn-light btn btn-outline-dark">
+                            <div class="text-center">2 in Cart</div>
+                            <input type="submit" value=" + " class="col-2 btn btn-light btn btn-outline-dark">
+                        </div>
+                        {% else %}
+                        <!--a href="#" class="btn btn-primary">Add to Cart</!--a-->
+                        <form action="{% url 'eShopApp:home' %}" method="post" class="col-md-12 text-center">
+                            <!--"col-md-12 text-center" se form full size hojata hai mtlb add to cart button left side par nhe rahega beech me rahega -->
+                            {% csrf_token %}
+                            <input hidden type="text" name="product_id" value="{{product.id}}">
+                            <input type="submit" class="btn btn-primary " value="Add to Cart">
+                        </form>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>   
-            <div class="col-lg-3">
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-3">
             <div class="list-group">
                 <a href="/" class="list-group-item list-group-item-action ">All Products</a>
                 {% for category in categories %}
@@ -35,15 +46,10 @@
                 <a href="/?category_id={{category.id}}" class="list-group-item list-group-item-action ">{{category}}</a>
                 {% endfor %}
             </div>
-            </div>          
         </div>
     </div>
+</div>
 
 
 
-    {% endblock %}
-
-
-
-
-   
+{% endblock %}
