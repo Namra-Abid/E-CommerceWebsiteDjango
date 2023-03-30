@@ -23,7 +23,7 @@
                                   <!-- <span class="glyphicon glyphicon-minus"></span> -->
                                 </input>
                             
-                            <input type="text" name="quant[2]" class="form-control input-number" value="{{product|count_in_cart:request.session.cart}}" min="1" max="100">
+                            <input type="text"  class="form-control input-number" value="{{product|count_in_cart:request.session.cart}}" min="1" max="100" readonly>
                             
                                 <input type="submit" class="btn btn-primary btn-number" value=" + " >
                                     <!-- <span class="glyphicon glyphicon-plus"></span> -->
