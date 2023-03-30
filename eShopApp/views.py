@@ -9,11 +9,15 @@ from django.views import View
 class Index(View):
     def post(self,request):
         productid=request.POST.get('product_id')
+        value_of_remove=request.POST.get('remove')
         cart=request.session.get('cart')
         if cart:
             product_exist=cart.get(productid)
             if product_exist:
-                cart[productid]+=1
+                if value_of_remove:
+                    cart[productid]-=1
+                else:
+                    cart[productid]+=1
             else:
                 cart[productid]=1
         else:

@@ -16,27 +16,29 @@
                     </div>
                     <div class="card-footer  p-0 no-gutters ">
                         {% if product|is_in_cart:request.session.cart %}
-                        
-                        <div class="input-group">
-                           
-                                <input type="submit" class="btn btn-primary btn-number"  value=" - " >
-                                  <!-- <span class="glyphicon glyphicon-minus"></span> -->
-                                </input>
-                            
-                            <input type="text"  class="form-control input-number" value="{{product|count_in_cart:request.session.cart}}" min="1" max="100" readonly>
-                            
-                                <input type="submit" class="btn btn-primary btn-number" value=" + " >
-                                    <!-- <span class="glyphicon glyphicon-plus"></span> -->
-                                </input>
-                            
+                        <div class="input-group no-gutters ">     
+                            <!--MINUS SIGN -->
+                            <form action="{% url 'eShopApp:home' %}" method="post" >
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="product_id" value="{{product.id}}">
+                                    <input hidden type="text" name="remove" value="True">
+                                    <input type="submit" class="btn btn-primary btn-number" value=" - " ></input>      
+                            </form>                
+                             <!--VALUE BETWEEN Minus and Plus -->                                           
+                            <input type="text"  class="text-center form-control  bg-transparent" value="{{product|count_in_cart:request.session.cart}}" min="1" max="100" readonly>
+                            <!--PLUS SIGN -->
+                            <form action="{% url 'eShopApp:home' %}" method="post" >
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="product_id" value="{{product.id}}">
+                                    <input type="submit" class="btn btn-primary btn-number" value=" + " ></input>      
+                            </form>                                                          
                         </div>
-                        
-
                         {% else %}
                         <!--a href="#" class="btn btn-primary">Add to Cart</!--a-->
                         <form action="{% url 'eShopApp:home' %}" method="post" class="col-md-12 text-center">
-                            <!--"col-md-12 text-center" se form full size hojata hai mtlb add to cart button left side par nhe rahega beech me rahega -->
                             {% csrf_token %}
+                            <!--"col-md-12 text-center" se form full size hojata hai mtlb 
+                                add to cart button left side par nhe rahega beech me rahega -->                            
                             <input hidden type="text" name="product_id" value="{{product.id}}">
                             <input type="submit" class="btn btn-primary " value="Add to Cart">
                         </form>
