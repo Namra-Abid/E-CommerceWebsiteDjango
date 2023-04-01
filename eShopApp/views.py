@@ -24,7 +24,7 @@ class Index(View):
             cart={}
             cart[productid]=1
         request.session['cart']=cart
-        #print("CART :",request.session['cart'])
+        print("CART :",request.session['cart'])
         #return HttpResponseRedirect(reverse("eShopApp:home"))
         return HttpResponseRedirect(reverse("eShopApp:home") + f"#{productid}")
 

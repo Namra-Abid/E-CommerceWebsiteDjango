@@ -6,8 +6,15 @@ def is_in_cart(product,cart):
     keys=cart.keys()
     print(product,cart)
     for id in keys:
-        if int(id)==product.id:
-            return True
+        #print("cart[id], id :",cart[id], id)
+        # if value of product in cart is not zero only then it will return true 
+        # we write this condition because 
+        # if value of product in cart==0 so it will display - 0 +  
+        # which is not good if value is 0 then it should show add to cart button
+        value_of_product_in_cart=cart[id]
+        if value_of_product_in_cart!=0: 
+            if int(id)==product.id:
+                return True
     return False
 @register.filter(name='count_in_cart')
 def count_in_cart(product,cart):
