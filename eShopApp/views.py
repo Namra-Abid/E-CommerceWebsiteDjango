@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.hashers import make_password,check_password
 from .models import Product,Category,Customer
@@ -24,8 +24,9 @@ class Index(View):
             cart={}
             cart[productid]=1
         request.session['cart']=cart
-        print("CART :",request.session['cart'])
-        return HttpResponseRedirect(reverse("eShopApp:home"))
+        #print("CART :",request.session['cart'])
+        #return HttpResponseRedirect(reverse("eShopApp:home"))
+        return HttpResponseRedirect(reverse("eShopApp:home") + f"#{productid}")
 
     def get(self,request):
         cart=request.session.get('cart')

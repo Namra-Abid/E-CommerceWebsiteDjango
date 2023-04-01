@@ -7,7 +7,7 @@
         <div id="products" class="col-lg-8">
             <div class="row mx-auto">
                 {% for product in products %}
-                <div class="card mx-auto mb-3" style="width: 18rem;">
+                <div class="card mx-auto mb-3" id={{product.id}} style="width: 18rem;">
                     <img src="{{product.image.url}}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
@@ -18,7 +18,8 @@
                         {% if product|is_in_cart:request.session.cart %}
                         <div class="input-group no-gutters ">     
                             <!--MINUS SIGN -->
-                            <form action="{% url 'eShopApp:home' %}" method="post" >
+                            
+                            <form action="{% url 'eShopApp:home' %}?product_id={{ product_id }}" id={{product.id}} method="post" >
                                     {% csrf_token %}
                                     <input hidden type="text" name="product_id" value="{{product.id}}">
                                     <input hidden type="text" name="remove" value="True">
@@ -27,7 +28,7 @@
                              <!--VALUE BETWEEN Minus and Plus -->                                           
                             <input type="text"  class="text-center form-control  bg-transparent" value="{{product|count_in_cart:request.session.cart}}" min="1" max="100" readonly>
                             <!--PLUS SIGN -->
-                            <form action="{% url 'eShopApp:home' %}" method="post" >
+                            <form action="{% url 'eShopApp:home' %}?product_id={{ product_id }}" method="post" >
                                     {% csrf_token %}
                                     <input hidden type="text" name="product_id" value="{{product.id}}">
                                     <input type="submit" class="btn btn-primary btn-number" value=" + " ></input>      
@@ -35,7 +36,7 @@
                         </div>
                         {% else %}
                         <!--a href="#" class="btn btn-primary">Add to Cart</!--a-->
-                        <form action="{% url 'eShopApp:home' %}" method="post" class="col-md-12 text-center">
+                        <form action="{% url 'eShopApp:home' %}?product_id={{ product_id }}" method="post" class="col-md-12 text-center">
                             {% csrf_token %}
                             <!--"col-md-12 text-center" se form full size hojata hai mtlb 
                                 add to cart button left side par nhe rahega beech me rahega -->                            
