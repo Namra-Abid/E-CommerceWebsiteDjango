@@ -79,8 +79,8 @@ class Login(View):
             flag=check_password(password, customer.password)
             if flag:
                 request.session['customer_id']=customer.id
-                request.session['customer_email']=customer.email
-                print("request.session['customer_email']",request.session['customer_email'])
+                #request.session['customer_email']=customer.email
+                #print("request.session['customer_email']",request.session['customer_email'])
                 return HttpResponseRedirect(reverse("eShopApp:home"))
             else:
                 error_message="Email or Password Invalid !! "
