@@ -88,3 +88,12 @@ class Login(View):
                 error_message="Email or Password Invalid !! "
         custform=LoginForm()
         return render(request,"eShopApp/login.html",{'error':error_message,'form':custform})
+class Logout(View):
+    def get(self,request):
+        request.session.clear()
+        # -----------Either This---------------------
+        #custform=LoginForm()
+        #return render(request,'eShopApp/login.html',{'form':custform})
+        #-------------OR this--------------------------------
+        return HttpResponseRedirect(reverse("eShopApp:login"))
+
