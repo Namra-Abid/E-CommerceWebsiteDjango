@@ -29,6 +29,9 @@ class Product(models.Model):
             return Product.objects.filter(Category=category_id)
         else:
             return Product.objects.all()
+    @staticmethod
+    def get_product_by_id(id):
+        return Product.objects.filter(id__in=id)
         
 
 class Customer(models.Model):
