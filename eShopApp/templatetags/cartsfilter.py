@@ -25,5 +25,9 @@ def count_in_cart(product,cart):
             return cart.get(id)
     return False
 
+@register.filter(name='total_price_of_each_product')
+def total_price_of_each_product(product,cart):
+    return product.price * count_in_cart(product,cart)
+
 
 

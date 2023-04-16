@@ -22,7 +22,7 @@
                 <td>{{product.name}}</td>
                 <td>{{product.price}}</td>                
                 <td>{{product|count_in_cart:request.session.cart}}</td>
-                
+                <td>{{product|total_price_of_each_product:request.session.cart}}</td>
               </tr>
               {% endfor %}
             </tbody>
