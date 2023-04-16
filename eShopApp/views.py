@@ -99,12 +99,12 @@ class Logout(View):
     
 class Cart(View):
     def get(self,request):
-        thingsInCart=""
+        productsInCart=None
         if (request.session.get('cart')) is None:
-           thingsInCart="There is no Product in Cart !"
+           productsInCart=None
         else:
            ids_of_product_in_cart_=list(request.session.get('cart').keys())
-           thingsInCart=Product.get_product_by_id(ids_of_product_in_cart_)
-        print("thingsInCart",thingsInCart)
-        return render (request,"eShopApp/cart.html",{})
+           productsInCart=Product.get_product_by_id(ids_of_product_in_cart_)
+        print("productsInCart",productsInCart)
+        return render (request,"eShopApp/cart.html",{"productsInCart":productsInCart})
 

@@ -1,9 +1,33 @@
 {% extends 'eShopApp/base.html' %}
 {% load crispy_forms_tags %}
-
+{% load cartsfilter %}
 {% block title %} Cart Page{% endblock %}
 {% block body %}
+<div class="container">
+    <div class="border rounded p-4 m-4">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name </th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Price</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for product in productsInCart %}
+              <tr>
+                <th scope="row">1</th>
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>                
+                <td>{{product|count_in_cart:request.session.cart}}</td>
+                
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
 
-
-
+    </div>
+</div>
 {% endblock %}
