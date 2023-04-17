@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 class Category(models.Model):
@@ -50,4 +51,14 @@ class Customer(models.Model):
             return Customer.objects.get(email=email)
         except:
             return False
+        
+class Order(models.Model):
+    customer=models.ForeignKey(Customer,on_delete=models.CASCADE)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    quantity=models.IntegerField(default=1)
+    price=models.IntegerField()
+    address=models.CharField(max_length=100,default='',blank=True)
+    phone=models.CharField(max_length=12,default='',blank=True)
+    date=models.DateField(default=datetime.datetime.now)
+
 

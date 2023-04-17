@@ -8,41 +8,92 @@
         <p class="display-4 pl-4 ml-4">Cart</p>
         <table class="table table-striped">
             <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Image</th>
-                <th scope="col">Name </th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Total Price</th>
-              </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Name </th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total Price</th>
+                </tr>
             </thead>
             <tbody>
                 {% for product in productsInCart %}
-              <tr>
-                <th scope="row">{{forloop.counter}}</th>
-                
-                <td>
-                    <img src="{{product.image.url}}" style="height:50px; width:50px" class="rounded-circle" alt="...">
-                </td>
-                <td>{{product.name}}</td>
-                <td>{{product.price}}</td>                
-                <td>{{product|count_in_cart:request.session.cart}}</td>
-                <td>{{product|total_price_of_each_product:request.session.cart}}</td>
-              </tr>
-              {% endfor %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+
+                    <td>
+                        <img src="{{product.image.url}}" style="height:50px; width:50px" class="rounded-circle"
+                            alt="...">
+                    </td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product|count_in_cart:request.session.cart}}</td>
+                    <td>{{product|total_price_of_each_product:request.session.cart}}</td>
+                </tr>
+                {% endfor %}
             </tbody>
             <tfoot>
                 <th colspan="4"></th>
                 <th class="" colspan="">Total</th>
                 <th> {{productsInCart|total_price_of_all_product:request.session.cart}}</th>
             </tfoot>
-          </table>
-          <hr>
-          <div class="m-3 p-3">
-            <a href="" class="btn btn-outline-info border rounded col-lg-4 float-right"> Add to Cart</a>
-          </div>
+        </table>
+        <hr>
+        <div class="m-3 p-3">
+            <a href="#" data-toggle="modal" data-target="#exampleModal"
+                class="btn btn-outline-info border rounded col-lg-4 float-right"> Add to Cart</a>
+        </div>
 
     </div>
 </div>
+
+<!--MODAL-->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Check Out Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!--self added-->
+                <div class="m-2 p-3">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="">Address</label>
+                            <input type="text" name="address" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Phone</label>
+                            <input type="text" name="phone" id="" class="form-control" placeholder=""  aria-describedby="helpId">
+                        </div>
+                        <input type="submit" class="btn float-right btn-outline-info col-lg-6" value="Check out">
+                    </form>
+                </div>
+                <!--self added-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+    integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+    integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+
 {% endblock %}
