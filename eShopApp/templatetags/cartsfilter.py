@@ -4,7 +4,7 @@ register =template.Library()
 @register.filter(name='is_in_cart')
 def is_in_cart(product,cart):
     keys=cart.keys()
-    print(product,cart)
+    #print(product,cart)
     for id in keys:
         #print("cart[id], id :",cart[id], id)
         # if value of product in cart is not zero only then it will return true 
