@@ -30,4 +30,13 @@ def total_price_of_each_product(product,cart):
     return product.price * count_in_cart(product,cart)
 
 
+@register.filter(name='total_price_of_all_product')
+def total_price_of_all_product(AllProductsInCart,cart):
+    sum=0
+    for p in AllProductsInCart:
+        sum=sum+total_price_of_each_product(p,cart)
+        #print(sum)
+
+    return sum
+
 

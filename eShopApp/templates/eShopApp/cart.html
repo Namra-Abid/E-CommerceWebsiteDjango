@@ -26,6 +26,10 @@
               </tr>
               {% endfor %}
             </tbody>
+            <tfoot>
+                <th colspan="4">Total</th>
+                <th> {{productsInCart|total_price_of_all_product:request.session.cart}}</th>
+            </tfoot>
           </table>
 
     </div>
