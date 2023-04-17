@@ -10,6 +10,7 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
+                <th scope="col">Image</th>
                 <th scope="col">Name </th>
                 <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
@@ -20,6 +21,10 @@
                 {% for product in productsInCart %}
               <tr>
                 <th scope="row">1</th>
+                
+                <td>
+                    <img src="{{product.image.url}}" style="height:80px" alt="...">
+                </td>
                 <td>{{product.name}}</td>
                 <td>{{product.price}}</td>                
                 <td>{{product|count_in_cart:request.session.cart}}</td>
@@ -28,7 +33,7 @@
               {% endfor %}
             </tbody>
             <tfoot>
-                <th colspan="3"></th>
+                <th colspan="4"></th>
                 <th class="" colspan="">Total</th>
                 <th> {{productsInCart|total_price_of_all_product:request.session.cart}}</th>
             </tfoot>
