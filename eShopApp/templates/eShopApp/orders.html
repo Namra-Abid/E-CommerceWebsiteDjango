@@ -1,0 +1,54 @@
+{% extends 'eShopApp/base.html' %}
+{% load crispy_forms_tags %}
+{% load cartsfilter %}
+{% block title %} Cart Page{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="border rounded p-4 m-4">
+        <p class="display-4 pl-4 ml-4">Orders</p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product </th>
+                    <th scope="col">Date </th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+
+                    <td>
+                        <img src="{{order.product.image.url}}" style="height:50px; width:50px" class="rounded-circle"
+                            alt="...">
+                    </td>
+                    <td>{{order.product.name}}</td>
+                    <td>{{order.date}}</td>
+                    <td>{{order.product.price}}</td>
+                    <td>{{order.quantity}}</td>
+                    <td>{{order.product.price|multiply_any_two_number:order.quantity}}</td>
+                    <td>{{order.status|default:'pending'}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>           
+        </table>
+        <hr>        
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+    integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+    integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+
+{% endblock %}

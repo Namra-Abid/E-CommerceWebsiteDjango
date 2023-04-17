@@ -24,7 +24,7 @@ class Index(View):
             cart={}
             cart[productid]=1
         request.session['cart']=cart
-        print("CART :",request.session['cart'])
+        #print("CART :",request.session['cart'])
         #return HttpResponseRedirect(reverse("eShopApp:home"))
         return HttpResponseRedirect(reverse("eShopApp:home") + f"#{productid}")
 
@@ -133,3 +133,8 @@ class CheckOut(View):
         #we have to clear cart once order is placed
         request.session['cart']={}
         return HttpResponseRedirect(reverse("eShopApp:cart"))
+class OrderView(View):
+    def get(self,request):
+        orders=Order.get_order_by_customer(request.session.get('customer_id'))
+        #print(orders)
+        return render(request, 'eShopApp/orders.html',{"orders":orders})

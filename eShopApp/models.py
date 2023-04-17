@@ -63,5 +63,8 @@ class Order(models.Model):
 
     def placeOrder(self):
         self.save()
+    @staticmethod
+    def get_order_by_customer(cust_id):
+        return Order.objects.filter(customer=cust_id)
 
 

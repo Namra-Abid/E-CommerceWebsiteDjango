@@ -36,7 +36,9 @@ def total_price_of_all_product(AllProductsInCart,cart):
     for p in AllProductsInCart:
         sum=sum+total_price_of_each_product(p,cart)
         #print(sum)
-
     return sum
 
 
+@register.filter(name='multiply_any_two_number')
+def multiply_any_two_number(number_a,number_b):
+    return number_a*number_b
