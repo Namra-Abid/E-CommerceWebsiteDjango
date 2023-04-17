@@ -33,7 +33,11 @@
                     <td>{{order.product.price}}</td>
                     <td>{{order.quantity}}</td>
                     <td>{{order.product.price|multiply_any_two_number:order.quantity}}</td>
-                    <td>{{order.status|default:'pending'}}</td>
+                    {% if order.status %}
+                    <td><small class="badge badge-success"> Completed</small></td>
+                    {% else %}
+                    <td><small class="badge badge-warning"> Pending </small></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>           

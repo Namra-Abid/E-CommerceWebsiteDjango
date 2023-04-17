@@ -60,11 +60,13 @@ class Order(models.Model):
     address=models.CharField(max_length=100,default='',blank=True)
     phone=models.CharField(max_length=12,default='',blank=True)
     date=models.DateField(default=datetime.datetime.now)
+    status=models.BooleanField(default=False)
 
     def placeOrder(self):
         self.save()
     @staticmethod
     def get_order_by_customer(cust_id):
-        return Order.objects.filter(customer=cust_id)
+        #here order by is use to show latest order on top minus sign before date shows date in reverse order
+        return Order.objects.filter(customer=cust_id).order_by('-date')
 
 
