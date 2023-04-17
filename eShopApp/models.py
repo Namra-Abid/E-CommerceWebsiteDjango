@@ -61,4 +61,7 @@ class Order(models.Model):
     phone=models.CharField(max_length=12,default='',blank=True)
     date=models.DateField(default=datetime.datetime.now)
 
+    def placeOrder(self):
+        self.save()
+
 

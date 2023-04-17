@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.hashers import make_password,check_password
-from .models import Product,Category,Customer
+from .models import Product,Category,Customer,Order
 from .forms import CustomerForm,LoginForm
 from django.urls import reverse
 from django.views import View
@@ -105,6 +105,31 @@ class Cart(View):
         else:
            ids_of_product_in_cart_=list(request.session.get('cart').keys())
            productsInCart=Product.get_product_by_id(ids_of_product_in_cart_)
-        print("productsInCart",productsInCart)
+        #print("productsInCart",productsInCart)
         return render (request,"eShopApp/cart.html",{"productsInCart":productsInCart})
 
+class CheckOut(View):
+    def post(self,request):
+        phone_=request.POST.get('phone')
+        address_=request.POST.get('address')
+        customerId=request.session.get('customer_id')
+        product_ids_in_cart=list(request.session.get('cart').keys())
+        products=Product.get_product_by_id(product_ids_in_cart)
+        #print(phone_,address_,customerId,products)
+        cart=request.session.get('cart')
+        for product in products:
+            #quantity_of_each_product=request.session.get('cart')
+            #print("quantity_of_each_product",quantity_of_each_product)
+            order=Order(
+                customer=Customer(id=customerId),
+                product=product,
+                quantity=cart.get(str(product.id)),
+                price=product.price,
+                address=address_,
+                phone=phone_
+
+            )
+            order.save()
+        #we have to clear cart once order is placed
+        request.session['cart']={}
+        return HttpResponseRedirect(reverse("eShopApp:cart"))

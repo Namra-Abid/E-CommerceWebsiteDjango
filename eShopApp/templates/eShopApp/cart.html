@@ -64,7 +64,7 @@
             <div class="modal-body">
                 <!--self added-->
                 <div class="m-2 p-3">
-                    <form action="" method="POST">
+                    <form action="{% url 'eShopApp:checkout' %}" method="POST">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="">Address</label>
