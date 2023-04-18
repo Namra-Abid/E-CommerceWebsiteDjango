@@ -28,15 +28,24 @@
                     </td>
                     <td>{{product.name}}</td>
                     <td>{{product.price}}</td>
-                    <td>{{product|count_in_cart:request.session.cart}}</td>
-                    <td>{{product|total_price_of_each_product:request.session.cart}}</td>
+                    {% if request.session.cart %}
+                        <td>{{product|count_in_cart:request.session.cart}}</td>
+                        <td>{{product|total_price_of_each_product:request.session.cart}}</td>
+                    {% else %}
+                        <td></td>
+                        <td></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
             <tfoot>
                 <th colspan="4"></th>
                 <th class="" colspan="">Total</th>
-                <th> {{productsInCart|total_price_of_all_product:request.session.cart}}</th>
+                {% if request.session.cart %}
+                    <th> {{productsInCart|total_price_of_all_product:request.session.cart}}</th>
+                {% else %}
+                    <th>0</th>
+                {% endif %}
             </tfoot>
         </table>
         <hr>
