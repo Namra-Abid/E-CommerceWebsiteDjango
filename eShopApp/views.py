@@ -5,6 +5,8 @@ from .models import Product,Category,Customer,Order
 from .forms import CustomerForm,LoginForm
 from django.urls import reverse
 from django.views import View
+from eShopApp.middlewares.auth import auth_middleware
+from django.utils.decorators import method_decorator
 # Create your views here.
 class Index(View):
     def post(self,request):
@@ -134,6 +136,10 @@ class CheckOut(View):
         request.session['cart']={}
         return HttpResponseRedirect(reverse("eShopApp:cart"))
 class OrderView(View):
+    #we are ysing method decorator because when you auth_middleware is a decorator
+    #and you can not directly apply any decorator on Class methods so in order to 
+    #in order to apply decorator in our case auth_middleware we have to use method_decorator
+    @method_decorator(auth_middleware)
     def get(self,request):
         orders=Order.get_order_by_customer(request.session.get('customer_id'))
         #print(orders)
