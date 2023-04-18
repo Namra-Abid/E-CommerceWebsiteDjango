@@ -70,7 +70,9 @@ class SignUp(View):
 
 
 class Login(View):
+    return_url=None
     def get(self,request):
+        Login.return_url=request.GET.get('return_url')
         custform=LoginForm()
         return render(request,'eShopApp/login.html',{'form':custform})
     def post(self,request):
@@ -83,7 +85,13 @@ class Login(View):
                 request.session['customer_id']=customer.id
                 #request.session['customer_email']=customer.email
                 #print("request.session['customer_email']",request.session['customer_email'])
-                return HttpResponseRedirect(reverse("eShopApp:home"))
+                #return HttpResponseRedirect(reverse("eShopApp:home"))
+                if Login.return_url:
+                    return HttpResponseRedirect(Login.return_url)
+                else:
+                    Login.return_url=None
+                    return HttpResponseRedirect(reverse("eShopApp:home"))
+
             else:
                 error_message="Email or Password Invalid !! "
         else:
