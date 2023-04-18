@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from eShopApp.middlewares.auth import auth_middleware
 app_name="eShopApp"
 urlpatterns = [
   
@@ -10,6 +10,6 @@ urlpatterns = [
     path('logout/',views.Logout.as_view(),name='logout'),
     path('cart/',views.Cart.as_view(),name='cart'),
     path('checkout/',views.CheckOut.as_view(),name='checkout'),
-    path('orders/',views.OrderView.as_view(),name='orders')
+    path('orders/',auth_middleware(views.OrderView.as_view()),name='orders')
    
 ]

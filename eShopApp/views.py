@@ -139,7 +139,7 @@ class OrderView(View):
     #we are ysing method decorator because when you auth_middleware is a decorator
     #and you can not directly apply any decorator on Class methods so in order to 
     #in order to apply decorator in our case auth_middleware we have to use method_decorator
-    @method_decorator(auth_middleware)
+   # @method_decorator(auth_middleware)
     def get(self,request):
         orders=Order.get_order_by_customer(request.session.get('customer_id'))
         #print(orders)
